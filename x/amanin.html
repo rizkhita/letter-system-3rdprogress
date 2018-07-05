@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<?php
+
+session_start(); 
+if(empty($_SESSION['id_admin']) and empty($_SESSION['NIP'])){ 
+  header("location:index.php");
+}
+
+?>
+
+<?php
+include ('head.php');
+?>
+
+<?php 
+ echo $_SESSION['id_admin'];
+ echo $_SESSION['NIP'];
+?>
+
+  <?php
+
+      $cek = mysqli_query($con, "SELECT * FROM data_pns WHERE NIP='$a' ");
+      $ceklagi=mysqli_num_rows($cek);
+
+      $cek2 = mysqli_query($con, "SELECT * FROM anggota_bidang WHERE NIP='$a' ");
+      $ceklagi2 =mysqli_num_rows($cek2);
+
+       if($ceklagi>0){
+        header("location: tambah_anggota.php?tambah_anggota=gagal");
+          }else {
+
+          if($ceklagi2<1){
+            $tambah=mysqli_query($con, "INSERT INTO anggota_bidang(kode_bidang,NIP) VALUES ('$x','$a')");
+             header("location:data_anggota.php");
+             }else{
+              header("location: tambah_anggota.php?tambah_anggota=gagal2");
+          }
+        }
+
+
+
+
+      // include("koneksi.php");
+      // if (isset($_POST["tambahdata"])){
+      // $x=$_POST['kode_bidang'];
+      // $a=$_POST['NIP'];
+
+      // $cek2 = mysqli_query($con, "SELECT * FROM anggota_bidang WHERE NIP='$a' ");
+      // $ceklagi2 =mysqli_num_rows($cek2);
+      // $cek2 = mysqli_query($con, "SELECT * FROM anggota_bidang WHERE NIP='$a' ");
+      // $ceklagi2 =mysqli_num_rows($cek2);
+
+      
+      //     if($ceklagi2<1){
+      //        $tambah=mysqli_query($con, "INSERT INTO anggota_bidang(kode_bidang,NIP) VALUES ('$x','$a')");
+      //        header("location:data_anggota.php");
+      //        }else
+      //         header("location: tambah_anggota.php?tambah_anggota=gagal");
+      //        }
+  
+   
+    ?>
+
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+<?php
+include ('nav_admin.php');
+?>
+<!-- end -->
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <!-- Example DataTables Card-->
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-table"></i> Data Table Example</div>
+        <div class="card-body">
+          </div>
+ 
+<table>
+<td style="width:70px;"></td>
+<h3>Tambah Data Pegawai</h3><br>
+<form action="tambah_anggota.php"  method="post">
+<td>
+  <!-- <input type="hidden" name="id" class="form-control" style="width:300px;"> -->
+    
+    <div class="form-group">
+      <label >Kode Bidang:</label>
+      <input type="text" name="kode_bidang" class="form-control" style="width:300px;">
+    </div>
+    <div class="form-group">
+      <label >NIP:</label>
+      <input type="text" name="NIP" class="form-control" style="width:300px;">
+    </div> 
+    <br>
+    <button style="width:150px;text-align:center;" type="submit" value="simpan" name="tambahdata"class="btn btn-primary">SUBMIT</button>
+  </td>
+<!--     <?php
+    if (isset($_GET["tambah_anggota"])){
+              if ($_GET["tambah_anggota"] == 'gagal'){
+                echo "<p id='gagal'>Penambahan Gagal,NIP sudah ada</p>";
+              }
+            }
+
+
+  ?> -->
+
+  <?php
+
+          if (isset($_GET["tambah_anggota"])){
+              if ($_GET["tambah_anggota"] == 'gagal'){
+                echo "<p id='gagal'>NIP salah</p>";
+              }
+            }
+          if (isset($_GET["tambah_anggota"])){
+              if ($_GET["tambah_anggota"] == 'gagal2'){
+                echo "<p id='gagal'>Gagal,NIP sudah terdaftar di keanggotaan </p>";
+              }
+            }
+            
+          ?>
+
+  </form>
+  </table>    
+      </div>
+        </div>
+        <div class="card-footer small text-muted">Dinas Komunikasi dan Informatika Provinsi Jawa Barat</div>
+      </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Copyright © Your Website 2018</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/datatables/jquery.dataTables.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin.min.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="js/sb-admin-datatables.min.js"></script>
+    <script src="js/sb-admin-charts.min.js"></script>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<?php
+    session_start();
+    include_once("koneksi.php");
+    if (isset($_POST["login"])){
+    
+$level = $_POST['level'];
+$NIP = $_POST['NIP'];
+$password = $_POST['password'];
+
+
+
+$query = mysqli_query($con, "SELECT * FROM login_pns WHERE NIP = '$NIP' AND password = '$password' ");
+$x = mysqli_fetch_array($query);
+
+
+$query2 = mysqli_query($connect, "SELECT * FROM login_ppk WHERE NIP = '$NIP' AND password = '$password' ");
+$y = mysqli_fetch_array($query2);
+
+
+$query3 = mysqli_query($connect, "SELECT * FROM login_admin WHERE NIP = '$NIP' AND password = '$password'");
+$z = mysqli_fetch_array($query3);
+
+if($level=='use'){
+
+  if($x['NIP'] == $NIP AND $x['password'] == $password){
+
+    $_SESSION['NIP'] = $x['NIP'];
+    $_SESSION['id_pns'] = $x['id_pns'];
+    header("location:as_user.php");
+    }
+    else{
+    mysqli_close();
+    session_destroy();
+    header("location: login.php?login=gagal");
+    }
+
+ }else if($level=='ppk'){
+
+       if($y['NIP'] == $NIP AND $y['password'] == $password){
+       $_SESSION['NIP'] = $y['NIP'];
+       $_SESSION['id_ppk'] = $y['id_ppk'];
+       header("location:as_ppk.php");
+       }
+       else{
+       mysqli_close();
+       session_destroy();
+       header("location: login.php?login=gagal"); 
+      }
+
+}else if($level=='admin'){
+
+      if($z['NIP'] == $NIP AND $z['password'] == $password){
+      $_SESSION['NIP'] = $z['NIP'];
+      $_SESSION['id_admin'] = $z['id_admin'];
+      }
+       else{
+       mysqli_close();
+       session_destroy();
+       header("location: login.php?login=gagal"); 
+       }
+}else{
+                  mysqli_close();
+                  session_destroy();
+                  header("location: login.php?login=gagal");}
+
+}
+
+?>

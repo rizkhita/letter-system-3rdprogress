@@ -1,0 +1,40 @@
+<?php
+include ("koneksi.php");
+
+// header("location: index.php");
+
+$x=$_POST['NIP'];
+$a=$_POST['nama'];
+$b=$_POST['tempat_lahir'];
+$c=$_POST['tanggal_lahir'];
+$d=$_POST['jk'];
+$e=$_POST['pangkat_golongan'];
+$f=$_POST['pangkat_tmt'];
+$g=$_POST['jabatan_eselon'];
+$h=$_POST['jabatan_tmt'];
+$i=$_POST['masa_kerja'];
+$j=$_POST['nama_plj'];
+$k=$_POST['bulan_plj'];
+$l=$_POST['jam_plj'];
+$m=$_POST['nama_pendidikan'];
+$n=$_POST['jurusan'];
+$o=$_POST['tahun_lulus'];
+$p=$_POST['ijazah'];
+$q=$_POST['usia'];
+
+$tambah=mysqli_query($con, "INSERT INTO data_pns (NIP,nama,tempat_lahir,tanggal_lahir,jk,pangkat_golongan,pangkat_tmt,jabatan_eselon,jabatan_tmt,masa_kerja,nama_plj,bulan_plj,jam_plj,nama_pendidikan,jurusan,tahun_lulus,ijazah,usia) VALUES ('$x','$a','$b','$c','$d','$e','$f','$g','$h','$i','$j','$k','$l','$m','$n','$o','$p','$q')");
+
+if($tambah){ //jika semua telah diisi maka akan kembali ke index.html
+				echo "<script> window.location = 'data_pns.php'; </script>";
+			}
+			else
+				echo "gagal";
+
+// $QUERY="INSERT INTO data_pns SET nama='$a',tempat_lahir='$b',tanggal_lahir='$c',jk='$d',pangkat_golongan='$e',pangkat_tmt='$f',masa kerja='$i', jabatan_eselon='$g',   ";
+// mysqli_query($tambah) or die (error_reporting());
+// 			header("location: index.php");
+?>
+
+<!-- iwan sofanah-mikrotik book guide -->
+<!-- gns3 simulator mikrotik download, install di virtual box (download too), router os -->
+<!-- lisensi level, download osnya trialnya 24 jam, download di .... -->

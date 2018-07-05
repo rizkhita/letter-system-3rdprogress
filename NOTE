@@ -1,0 +1,251 @@
+Buat pertanyaan ke pak Eri :
+1. Tanyain tentang persetujuan cuti buat print, (bkd atau dinas)
+2. SK cuma cuti KAP sama LTN aja?
+3. BKD di admin kan?
+4. Persetujuan PPK saat mengajukan 5 jenis cuti...
+
+
+
+
+jenis cuti dengan form yang bisa di ctrl H :
+>cuti kap,sakit,tahunan
+>besar,melahirkan,ltn 
+
+
+YANG HARUS DILAKUKAN SEKALIAN SAAT MENGEDIT :
+1. RAPIHIN BARIS CODE SAMBIL EDIT KONEKSI : ../KONEKSI
+2. BENERIN ALASAN SAMA ALAMAT JADI PAKE TEXTAREA 
+
+
+
+
+
+
+
+
+Nanti untuk pengajuan cuti ppk ke kadin, tinggal depannya aja pake "pengajuan_", lalu ctrl H
+
+#MAKE IT SIMPLE
+
+Oh iya, cek data togglenya yaa...
+fa download
+fa print
+
+....Buat placeholder contoh.......... 
+----Cek Lagi yang ada MKnya di if else--------
+
+----Nomor Surat kalau harus pake, dari id tapi jadi id=id-13(tergantung udah berapa surat yg sebeluknya kebuat)
+
+~~~~ Urutan fitur Pengajuan PNS: ~~~~
+
+Di Admin (exit sudah beres)
+-Tahunan   || Atur jatah tahunan !! (kurangi dari total lama cuti)
+
+Di PNS (exit sudah beres)
+-KAP (done)
+-Melahirkan (done)
+-Besar (done) || atur masa kerja !
+
+-Tahunan 
+-LTN
+
+Di PPK
+
+"Hapus update BKD" (done)
+
+-KAP (done)
+-Melahirkan (done)-->pindahin ke kadin (done)   
+-Besar (done)-->pindahin ke kadin (done)    || Atur masa kerja !
+
+-Tahunan
+-Tidak untuk LTN
+
+Di Kepala Dinas
+-Cuti sakit for PPK only
+-Cuti KAP for PPK only 
+-Cuti Lahir (done)
+-Cuti Besar (done) || atur masa kerja !
+-Cuti LTN   || atur masa kerja !
+
+
+SKIP FOR UPDATING
+
+~~~ Fitur Print Surat :    ~~~~
+
+Admin 
+-SK
+-Surat Legalitas
+-Surat Pengajuan ke BKD
+
+PNS
+-Surat Legalitas
+-Surat Pengajuan ke BKD 
+
+PPK
+-Ga ada
+
+Kadin 
+-Ga ada
+
+kalau error :
+update >> form action
+
+
+
+
+
+
+
+
+Urutan Fitur Pengajuan Kabid :
+Belum, jangan dulu dipikirin
+
+
+YANG PERLU DICEK :
+-VALUE JENIS CUTI
+-CRUD
+-
+
+
+!!!Every kodingan harus dibenerin sessionnya
+<?php
+ include('koneksi.php');
+  session_start(); 
+  if(!isset($_SESSION['id_admin']) and !isset($_SESSION['NIP'])){ 
+  header("location:../index.php");
+  exit();
+  }
+  include ('../head.php');
+?>
+
+#tambahin exit !
+
+
+"Logika cuti tahunan
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>"Logika cuti besar 
+
+Copas INI
+
+
+
+
+
+
+Cek lagi !!!!!
+tambahin ini di button pengajuan surat pns, yang di tablenya...Semua
+class="card-footer text-white clearfix small z-1" data-toggle="modal" data-target="#exampleCuti"
+
+tinggal ganti href bawah
+
+<?php
+      include("koneksi.php");
+      $tes=$_SESSION['NIP'];
+
+      $cek=mysqli_query($con, "SELECT masa_kerja from data_pns where NIP='$tes'");
+      $mk=mysqli_fetch_array($cek);
+
+      if($mk<5){
+        ?> 
+            <body class="fixed-nav sticky-footer bg-dark" id="page-top">
+          <!-- Navigation-->
+          <?php include ('nav_user.php'); ?>
+          <!-- end -->
+           <div class="content-wrapper">
+             <div class="container-fluid">
+
+               <!-- Example DataTables Card-->
+               <div class="card mb-3">
+                 <div class="card-header">
+                   <i class="fa fa-table"></i>&nbsp;Pengajuan Cuti Besar</div>
+                  <div class="card-body">
+                    </div>
+ 
+          <table>
+          <td style="width:70px;"></td>
+          <h3>&nbsp;&nbsp;&nbsp;Maaf, Masa Kerja Anda Belum Genap 5 Tahun</h3><br>
+          <h3>&nbsp;&nbsp;&nbsp;<a href="cuti_besar.php" class="btn btn-primary" style="width:100px;">Kembali</a></h3><br>
+         </table>    
+            </div>
+              </div>
+              <div class="card-footer small text-muted">Dinas Komunikasi dan Informatika Provinsi Jawa Barat</div>
+            </div>
+          </div>
+          <!-- /.container-fluid-->
+          <!-- /.content-wrapper-->
+          <footer class="sticky-footer">
+            <div class="container">
+              <div class="text-center">
+                <small>Copyright © Your Website 2018</small>
+              </div>
+            </div>
+          </footer>
+          <!-- Scroll to Top Button-->
+          <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fa fa-angle-up"></i>
+          </a>
+              <!-- Toggle Pengajuan Cuti -->
+    
+           <!-- END -->
+    
+          <!-- Logout Modal-->
+        <?php include ('footer_table.php'); ?>
+        </div>
+      </body>
+      </html>
+
+      <?php
+      }else{
+
+      ................SAMPAI IF ISSET KE BODY
+
+      <?php } ?>
+
+
+LOGIKA SELECT
+
+select nama,kode from bidang
+while (fetch_array){
+
+  <select value='data['kode']'><?php echo data['nama'];?></select>
+}
+
+
+
+
+
+
+
+
+
+Logika print cuti :
+
+kalau disetujui, cetak surat permintaan
+
+

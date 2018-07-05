@@ -1,0 +1,3 @@
+<?php
+$query=mysqli_query($con,"SELECT anggota_kelas.NISN,anggota_kelas.kode_kelas,data_absensi.id,data_siswa.nama,data_absensi.NISN,data_absensi.tgl1,data_absensi.status1 FROM data_absensi inner join data_siswa on data_absensi.NISN=data_siswa.NISN inner join anggota_kelas on data_absensi.NISN=anggota_kelas.NISN where anggota_kelas.kode_kelas=(SELECT kode_kelas from data_kelas where NISN='$tes' ) ");
+?>
